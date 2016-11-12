@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Association</string>
+    <string name="association_game_title">Association Game</string>
+    <string name="start_a_game_str">Start a game</string>
+    <string name="about_the_game_str">About the game</string>
+    <string name="ok_message">OK</string>
+    <string name="about_game_content_str">Association game - is a simple game which description you can easily find in the Internet. Made as task at NSU</string>
+    <string name="about_game_str">About the game</string>
+</resources>
