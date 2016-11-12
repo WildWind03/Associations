@@ -27,7 +27,8 @@
         android:id="@+id/mainGameImage"
         android:src="@drawable/banana"
         android:scaleType="fitStart"
-        android:adjustViewBounds="true"/>
+        android:adjustViewBounds="true"
+        android:layout_gravity="center" />
 
     <Button
         android:layout_width="fill_parent"

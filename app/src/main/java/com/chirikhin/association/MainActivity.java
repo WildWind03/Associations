@@ -3,14 +3,14 @@ package com.chirikhin.association;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.chirikhin.association.game.GameFragment;
 import com.chirikhin.association.startgame.MainMenuFragment;
+import com.chirikhin.association.teamcreate.TeamCreateFragment;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 public class MainActivity extends BaseActivity {
-
-    private GameState gameState = GameState.MAIN_MENU;
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
@@ -21,15 +21,6 @@ public class MainActivity extends BaseActivity {
                     .beginTransaction()
                     .add(R.id.root_layout, MainMenuFragment.newInstance(), MainMenuFragment.class.getName())
                     .commit();
-        }
-
-        switch (gameState) {
-            case MAIN_MENU:
-                break;
-            case TEAM_WINDOW:
-                break;
-            case GAME_WINDOW:
-                break;
         }
     }
 
@@ -47,12 +38,25 @@ public class MainActivity extends BaseActivity {
 
     @Subscribe
     public void onNewGameEvent(NewGameEvent newGameEvent) {
-
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.root_layout, TeamCreateFragment.newInstance(), TeamCreateFragment.class.getName())
+                .addToBackStack(null)
+                .commit();
     }
 
     @Subscribe
     public void onAboutGameEvent(AboutGameEvent aboutGameEvent) {
         showMessage(getString(R.string.about_game_str), getString(R.string.about_game_content_str));
+    }
+
+    @Subscribe
+    public void onTeamNamesTypedEvent(TeamNamesTypedEvent teamNamesTypedEvent) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.root_layout, GameFragment.newInstance(teamNamesTypedEvent.getFirstTeamName(), teamNamesTypedEvent.getSecondTeamName()))
+                .addToBackStack(null)
+                .commit();
     }
 
 
