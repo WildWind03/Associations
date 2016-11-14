@@ -2,15 +2,12 @@ package com.chirikhin.association.startgame;
 
 import android.util.Log;
 import android.view.View;
-
+import butterknife.OnClick;
 import com.chirikhin.association.AboutGameEvent;
 import com.chirikhin.association.BaseFragment;
 import com.chirikhin.association.NewGameEvent;
 import com.chirikhin.association.R;
-
 import org.greenrobot.eventbus.EventBus;
-
-import butterknife.OnClick;
 
 public class MainMenuFragment extends BaseFragment {
 

@@ -18,14 +18,14 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="40dp"
         android:textIsSelectable="false"
-        android:textSize="38dp"
+        android:textSize="38sp"
         android:gravity="center" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/mainGameImage"
-        android:src="@drawable/banana"
+        android:src="@drawable/new_banana"
         android:scaleType="fitStart"
         android:adjustViewBounds="true"
         android:layout_gravity="center" />
@@ -37,7 +37,7 @@
         android:id="@+id/startGameButton"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="70dp"
-        android:background="#fcdf4a" />
+        android:background="@color/yellow_default" />
 
     <Button
         android:layout_width="fill_parent"
@@ -45,7 +45,7 @@
         android:text="@string/about_the_game_str"
         android:id="@+id/aboutTheGameButton"
         android:layout_gravity="center_horizontal"
-        android:background="#fcdf4a"
-        android:layout_marginTop="20dp" />
+        android:background="@color/yellow_default"
+    android:layout_marginTop="20dp" />
 
 </LinearLayout>
