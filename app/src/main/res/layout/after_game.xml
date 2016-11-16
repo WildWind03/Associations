@@ -8,7 +8,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="25sp"
-            android:text="Game Over"
+            android:text="@string/game_over_str"
             android:id="@+id/resultsTitle"
             android:layout_gravity="center_horizontal"
             android:layout_margin="20dp"/>
@@ -16,14 +16,14 @@
     <TextView android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:textSize="25sp"
-              android:text="Apes: "
+              android:text="@string/team_result_title"
               android:id="@+id/firstTeamResultTitle"
               android:layout_gravity="center_horizontal"/>
 
     <TextView android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:textSize="25sp"
-              android:text="Hedgehogs: "
+              android:text="@string/team_result_title"
               android:id="@+id/secondTeamResultTitle"
               android:layout_marginBottom="20dp"
               android:layout_gravity="center_horizontal"/>

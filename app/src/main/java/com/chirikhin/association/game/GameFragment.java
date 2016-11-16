@@ -1,9 +1,7 @@
 package com.chirikhin.association.game;
 
-import android.icu.util.TimeUnit;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -15,8 +13,6 @@ import com.chirikhin.association.GameCancelledEvent;
 import com.chirikhin.association.R;
 import com.chirikhin.association.RoundEndedEvent;
 import org.greenrobot.eventbus.EventBus;
-
-import java.util.Timer;
 
 public class GameFragment extends BaseFragment {
     private static final String TEAM_NAME_SAVED = "TEAM_NAME_SAVED";
@@ -52,27 +48,25 @@ public class GameFragment extends BaseFragment {
             score = savedInstanceState.getInt(CURRENT_SCORE_SAVED);
 
             newRound(teamName, score, initialTime);
-        }  else {
-            getView().setFocusableInTouchMode(true);
-            getView().requestFocus();
-            getView().setOnKeyListener( new View.OnKeyListener()
-            {
-                @Override
-                public boolean onKey( View v, int keyCode, KeyEvent event )
-                {
-                    if( keyCode == KeyEvent.KEYCODE_BACK)
-                    {
-                        if (null != asyncTask) {
-                            asyncTask.cancel(true);
-                            asyncTask = null;
-                            EventBus.getDefault().post(new GameCancelledEvent());
-                            Log.d("TAG", "BACK");
+        } else {
+            if (null != getView()) {
+                getView().setFocusableInTouchMode(true);
+                getView().requestFocus();
+                getView().setOnKeyListener(new View.OnKeyListener() {
+                    @Override
+                    public boolean onKey(View v, int keyCode, KeyEvent event) {
+                        if (keyCode == KeyEvent.KEYCODE_BACK) {
+                            if (null != asyncTask) {
+                                asyncTask.cancel(true);
+                                asyncTask = null;
+                                EventBus.getDefault().post(new GameCancelledEvent());
+                            }
+                            return true;
                         }
-                        return true;
+                        return false;
                     }
-                    return false;
-                }
-            } );
+                });
+            }
         }
     }
 
@@ -98,24 +92,21 @@ public class GameFragment extends BaseFragment {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                teamTitle.setText("Team: " + teamName);
-                scoreTitle.setText("Score: " + initialScore);
-                timeView.setText(initialTime + "");
+                teamTitle.setText(getString(R.string.filed_and_value_placeholder, getString(R.string.team_str), teamName));
+                scoreTitle.setText(getString(R.string.filed_and_value_placeholder, getString(R.string.score_str), initialScore));
+                timeView.setText(String.valueOf(initialTime));
             }
 
             @Override
             protected Void doInBackground(Void... params) {
                 try {
                     while (counter > 0 && !isCancelled()) {
-                        Thread.currentThread().sleep(1000);
-                        counter--;
-                        publishProgress(counter);
+                        Thread.sleep(1000);
+                        publishProgress(--counter);
                     }
                 } catch (InterruptedException e) {
                     Log.d(getClass().getName(), e.getMessage());
                 }
-
-                Log.d(getClass().getName(), "Async task has been done");
                 return null;
             }
 
@@ -129,10 +120,10 @@ public class GameFragment extends BaseFragment {
             @Override
             protected void onProgressUpdate(Integer... values) {
                 super.onProgressUpdate(values);
-                timeView.setText(counter + "");
+                timeView.setText(String.valueOf(counter));
             }
         }
-        .execute();
+                .execute();
 
     }
 }

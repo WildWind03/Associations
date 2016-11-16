@@ -48,9 +48,11 @@
             android:maxLength="@integer/max_length_of_team_name"/>
 
     <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/ok_str"
+            android:background="@color/yellow_default"
             android:id="@+id/applyTeamNamesButton"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="15dp"/>
 </LinearLayout>

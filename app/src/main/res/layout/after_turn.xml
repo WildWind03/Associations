@@ -10,34 +10,34 @@
               android:textSize="30dp"
               android:layout_marginTop="30dp"
               android:id="@+id/areYouReadyTextView"
-              android:text="Apes, are you ready?"/>
+              android:text="@string/are_u_ready_str"/>
 
     <TextView
             android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Turn: "
+            android:text="@string/round_str"
             android:id="@+id/roundNumTextView" android:layout_gravity="center_horizontal"/>
     <TextView
             android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="First Team Score: "
+            android:text="@string/team_score"
             android:id="@+id/firstTeamScoreTextView" android:layout_gravity="center_horizontal"/>
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Second Team Score:"
+            android:text="@string/team_score"
             android:id="@+id/secondTeamScoreTextView" android:layout_gravity="center_horizontal"/>
 
     <Button
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Start next turn"
+            android:text="@string/start_next_turn_str"
             android:id="@+id/nextTurnButton" android:layout_gravity="center_horizontal"
             android:layout_margin="15dp"
             android:background="@color/yellow_default"/>
