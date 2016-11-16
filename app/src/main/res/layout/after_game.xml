@@ -18,7 +18,10 @@
               android:textSize="25sp"
               android:text="@string/team_result_title"
               android:id="@+id/firstTeamResultTitle"
-              android:layout_gravity="center_horizontal"/>
+              android:layout_gravity="center_horizontal"
+              android:gravity="center_horizontal"
+    android:layout_marginStart="15dp"
+    android:layout_marginEnd="15dp"/>
 
     <TextView android:layout_width="wrap_content"
               android:layout_height="wrap_content"
@@ -26,7 +29,11 @@
               android:text="@string/team_result_title"
               android:id="@+id/secondTeamResultTitle"
               android:layout_marginBottom="20dp"
-              android:layout_gravity="center_horizontal"/>
+              android:layout_gravity="center_horizontal"
+              android:gravity="center_horizontal"
+              android:layout_marginStart="15dp"
+              android:layout_marginEnd="15dp"/>
+
     <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content"
                android:src="@drawable/new_banana"
                android:layout_margin="15dp" android:contentDescription="@string/banana_image_description"/>

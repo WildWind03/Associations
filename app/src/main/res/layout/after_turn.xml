@@ -8,9 +8,10 @@
               android:layout_height="wrap_content"
               android:layout_gravity="center_horizontal"
               android:textSize="30dp"
-              android:layout_marginTop="30dp"
               android:id="@+id/areYouReadyTextView"
-              android:text="@string/are_u_ready_str"/>
+              android:text="@string/are_u_ready_str"
+              android:gravity="center_horizontal"
+              android:layout_margin="15dp"/>
 
     <TextView
             android:layout_marginTop="20dp"

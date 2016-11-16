@@ -1,11 +1,14 @@
 package com.chirikhin.association;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import android.support.v4.app.FragmentManager;
 import com.chirikhin.association.aftergame.AfterGameFragment;
 import com.chirikhin.association.beforeturn.BeforeTurnFragment;
+import com.chirikhin.association.database.DatabaseController;
 import com.chirikhin.association.game.GameFragment;
 import com.chirikhin.association.startgame.MainMenuFragment;
 import com.chirikhin.association.teamcreate.TeamCreateFragment;
@@ -22,8 +25,11 @@ public class MainActivity extends BaseActivity {
     private static final String FIRST_TEAM_SCORE_TAG = "FIRST_TEAM_SCORE_TAG";
     private static final String SECOND_TEAM_SCORE_TAG = "SECOND_TEAM_SCORE_TAG";
 
-    private static final int ROUND_TIME = 2;
-    private static final int COUNT_OF_ROUNDS = 1;
+    private static final int ROUND_TIME = 10;
+    private static final int COUNT_OF_ROUNDS = 4;
+
+    private static final String APP_PREFERENCES = "MY_SETTINGS";
+    private static final String IS_FIRST_START= "IS FIRST_START";
 
     private int currentRound;
 
@@ -32,6 +38,38 @@ public class MainActivity extends BaseActivity {
 
     private int team1Score;
     private int team2Score;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        SharedPreferences sharedPreferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+
+        boolean isFirstStart = sharedPreferences.getBoolean(IS_FIRST_START, true);
+
+        if (isFirstStart) {
+            DatabaseController databaseController = new DatabaseController(this);
+
+            databaseController.addNewWord("vague");
+            databaseController.addNewWord("mash");
+            databaseController.addNewWord("beam");
+            databaseController.addNewWord("shaft");
+            databaseController.addNewWord("impostor");
+            databaseController.addNewWord("immense");
+            databaseController.addNewWord("encompass");
+            databaseController.addNewWord("instigate");
+            databaseController.addNewWord("unduly");
+            databaseController.addNewWord("theft");
+            databaseController.addNewWord("subtle");
+
+            sharedPreferences.edit()
+                    .putBoolean(IS_FIRST_START, false)
+                    .apply();
+
+            databaseController.close();
+        }
+
+    }
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {

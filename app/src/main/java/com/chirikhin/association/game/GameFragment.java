@@ -8,11 +8,15 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 import butterknife.BindView;
+import butterknife.OnClick;
 import com.chirikhin.association.BaseFragment;
 import com.chirikhin.association.GameCancelledEvent;
 import com.chirikhin.association.R;
 import com.chirikhin.association.RoundEndedEvent;
+import com.chirikhin.association.database.DatabaseController;
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.Random;
 
 public class GameFragment extends BaseFragment {
     private static final String TEAM_NAME_SAVED = "TEAM_NAME_SAVED";
@@ -24,6 +28,9 @@ public class GameFragment extends BaseFragment {
     private int initialTime;
 
     private AsyncTask<Void, Integer, Void> asyncTask;
+    private Random random = new Random();
+
+    private DatabaseController databaseController;
 
     @BindView(R.id.timeTitle)
     protected TextView timeView;
@@ -34,6 +41,9 @@ public class GameFragment extends BaseFragment {
     @BindView(R.id.teamTitle)
     protected TextView teamTitle;
 
+    @BindView(R.id.wordText)
+    protected TextView wordText;
+
     public static GameFragment newInstance() {
         return new GameFragment();
     }
@@ -41,6 +51,8 @@ public class GameFragment extends BaseFragment {
     @Override
     protected void onPostViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onPostViewCreated(view, savedInstanceState);
+
+        databaseController = new DatabaseController(getContext());
 
         if (null != savedInstanceState) {
             teamName = savedInstanceState.getString(TEAM_NAME_SAVED);
@@ -78,6 +90,29 @@ public class GameFragment extends BaseFragment {
         outState.putString(TEAM_NAME_SAVED, teamName);
     }
 
+    private String getNextWord() {
+        long maxId = databaseController.getMaxId();
+
+        int idOfWord = random.nextInt((int) maxId) + 1;
+
+        return databaseController.getWord(idOfWord);
+
+    }
+
+    @OnClick(R.id.guesssedWordButton)
+    protected void onGuessedButtonClick(View v) {
+        wordText.setText(getNextWord());
+        score++;
+        scoreTitle.setText(getString(R.string.filed_and_value_placeholder, getString(R.string.score_str), score));
+    }
+
+    @OnClick(R.id.passWordButton)
+    protected void onPassButtonClick(View v) {
+        wordText.setText(getNextWord());
+        score--;
+        scoreTitle.setText(getString(R.string.filed_and_value_placeholder, getString(R.string.score_str), score));
+    }
+
 
     @Override
     protected int getLayout() {
@@ -85,6 +120,9 @@ public class GameFragment extends BaseFragment {
     }
 
     public void newRound(final String teamName, final int initialScore, final int initialTime) {
+
+        score = 0;
+        wordText.setText(getNextWord());
 
         asyncTask = new AsyncTask<Void, Integer, Void>() {
             private int counter = initialTime;
