@@ -8,7 +8,7 @@
     <string name="about_game_str">About the game</string>
     <string name="invalid_team_names_title">Invalid team names</string>
     <string name="invalid_team_names_str">You can not use empty names. Please, type names of the teams</string>
-    <string name="default_first_team_name">Hedgehogs</string>
+    <string name="default_first_team_name">Monkeys</string>
     <string name="default_second_team_name">Apes</string>
     <string name="default_first_word">Example</string>
     <string name="type_a_name_of_the_first_team_str">Type a name of the first team</string>
@@ -17,5 +17,10 @@
     <string name="pass_str">Pass</string>
     <string name="guess_str">Guessed!</string>
     <string name="team_title">Team:</string>
-    <string name="current_score_titile">Current Score:</string>
+    <string name="current_score_titile">Current Score:</string>T
+    <string name="banana_image_description">Banana image</string>
+    <string name="filed_and_value_placeholder">%1$s : %2$d</string>
+    <string name="round_str">Round</string>
+    <string name="are_u_ready_str">are you ready?</string>
+    <string name="are_you_ready_placeholder">%1$s, %2$s</string>
 </resources>

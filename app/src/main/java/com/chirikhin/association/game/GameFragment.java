@@ -1,15 +1,22 @@
 package com.chirikhin.association.game;
 
+import android.icu.util.TimeUnit;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 import butterknife.BindView;
 import com.chirikhin.association.BaseFragment;
+import com.chirikhin.association.GameCancelledEvent;
 import com.chirikhin.association.R;
 import com.chirikhin.association.RoundEndedEvent;
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.Timer;
 
 public class GameFragment extends BaseFragment {
     private static final String TEAM_NAME_SAVED = "TEAM_NAME_SAVED";
@@ -19,6 +26,8 @@ public class GameFragment extends BaseFragment {
     private String teamName;
     private int score;
     private int initialTime;
+
+    private AsyncTask<Void, Integer, Void> asyncTask;
 
     @BindView(R.id.timeTitle)
     protected TextView timeView;
@@ -43,6 +52,27 @@ public class GameFragment extends BaseFragment {
             score = savedInstanceState.getInt(CURRENT_SCORE_SAVED);
 
             newRound(teamName, score, initialTime);
+        }  else {
+            getView().setFocusableInTouchMode(true);
+            getView().requestFocus();
+            getView().setOnKeyListener( new View.OnKeyListener()
+            {
+                @Override
+                public boolean onKey( View v, int keyCode, KeyEvent event )
+                {
+                    if( keyCode == KeyEvent.KEYCODE_BACK)
+                    {
+                        if (null != asyncTask) {
+                            asyncTask.cancel(true);
+                            asyncTask = null;
+                            EventBus.getDefault().post(new GameCancelledEvent());
+                            Log.d("TAG", "BACK");
+                        }
+                        return true;
+                    }
+                    return false;
+                }
+            } );
         }
     }
 
@@ -62,7 +92,7 @@ public class GameFragment extends BaseFragment {
 
     public void newRound(final String teamName, final int initialScore, final int initialTime) {
 
-        new AsyncTask<Void, Integer, Void>() {
+        asyncTask = new AsyncTask<Void, Integer, Void>() {
             private int counter = initialTime;
 
             @Override
@@ -76,20 +106,23 @@ public class GameFragment extends BaseFragment {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    while (counter > 0) {
-                        Thread.sleep(1000);
+                    while (counter > 0 && !isCancelled()) {
+                        Thread.currentThread().sleep(1000);
                         counter--;
                         publishProgress(counter);
                     }
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    Log.d(getClass().getName(), e.getMessage());
                 }
+
+                Log.d(getClass().getName(), "Async task has been done");
                 return null;
             }
 
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
+                asyncTask = null;
                 EventBus.getDefault().post(new RoundEndedEvent(score));
             }
 
@@ -98,7 +131,8 @@ public class GameFragment extends BaseFragment {
                 super.onProgressUpdate(values);
                 timeView.setText(counter + "");
             }
-        }.execute();
+        }
+        .execute();
 
     }
 }

@@ -1,56 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="fill_parent"
-    android:layout_height="match_parent">
+              android:orientation="vertical" android:layout_width="fill_parent"
+              android:layout_height="match_parent">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/type_a_name_of_the_first_team_str"
-        android:id="@+id/firstTeamNameTitle"
-        android:textSize="@dimen/title_text_size"
-        android:layout_marginBottom="@dimen/default_margin"
-        android:layout_marginTop="@dimen/default_margin"
-        android:layout_marginLeft="@dimen/default_margin"
-        android:layout_marginRight="@dimen/default_margin" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/type_a_name_of_the_first_team_str"
+            android:id="@+id/firstTeamNameTitle"
+            android:textSize="@dimen/title_text_size"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginRight="@dimen/default_margin"/>
 
     <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/editFirstTeamName"
-        android:layout_marginBottom="@dimen/default_margin"
-        android:layout_marginLeft="@dimen/default_margin"
-        android:layout_marginRight="@dimen/default_margin"
-        android:text="@string/default_first_team_name"
-        android:maxLength="@integer/max_length_of_team_name" />
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editFirstTeamName"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginRight="@dimen/default_margin"
+            android:text="@string/default_first_team_name"
+            android:maxLength="@integer/max_length_of_team_name"/>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/type_a_name_of_the_second_team_str"
-        android:id="@+id/secondTeamNameTitle"
-        android:textSize="@dimen/title_text_size"
-        android:layout_marginBottom="@dimen/default_margin"
-        android:layout_marginLeft="@dimen/default_margin"
-        android:layout_marginRight="@dimen/default_margin" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/type_a_name_of_the_second_team_str"
+            android:id="@+id/secondTeamNameTitle"
+            android:textSize="@dimen/title_text_size"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginRight="@dimen/default_margin"/>
 
     <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/editSecondTeamName"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="@dimen/default_margin"
-        android:layout_marginLeft="@dimen/default_margin"
-        android:layout_marginRight="@dimen/default_margin"
-        android:text="@string/default_second_team_name"
-        android:maxLength="@integer/max_length_of_team_name" />
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editSecondTeamName"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginRight="@dimen/default_margin"
+            android:text="@string/default_second_team_name"
+            android:maxLength="@integer/max_length_of_team_name"/>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/ok_str"
-        android:id="@+id/applyTeamNamesButton"
-        android:layout_gravity="center_horizontal" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ok_str"
+            android:id="@+id/applyTeamNamesButton"
+            android:layout_gravity="center_horizontal"/>
 </LinearLayout>

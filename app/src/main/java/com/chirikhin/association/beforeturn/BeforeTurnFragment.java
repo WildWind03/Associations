@@ -1,4 +1,4 @@
-package com.chirikhin.association.gamecontrol;
+package com.chirikhin.association.beforeturn;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,7 +11,7 @@ import com.chirikhin.association.NewRoundEvent;
 import com.chirikhin.association.R;
 import org.greenrobot.eventbus.EventBus;
 
-public class GameControlFragment extends BaseFragment {
+public class BeforeTurnFragment extends BaseFragment {
     private static final String FIRST_TEAM_NAME_TAG = "FIRST_TEAM";
     private static final String SECOND_TEAM_NAME_TAG = "SECOND_TEAM";
 
@@ -28,6 +28,9 @@ public class GameControlFragment extends BaseFragment {
     private String teamName1;
     private String teamName2;
 
+    @BindView(R.id.areYouReadyTextView)
+    protected TextView areYouReadyTextView;
+
     @BindView(R.id.roundNumTextView)
     protected TextView roundNumTextView;
 
@@ -37,8 +40,8 @@ public class GameControlFragment extends BaseFragment {
     @BindView(R.id.secondTeamScoreTextView)
     protected TextView secondTeamScoreTextView;
 
-    public static GameControlFragment newInstance(String firstTeamName, String secondTeamName) {
-        GameControlFragment gameControlFragment = new GameControlFragment();
+    public static BeforeTurnFragment newInstance(String firstTeamName, String secondTeamName) {
+        BeforeTurnFragment gameControlFragment = new BeforeTurnFragment();
         Bundle bundle = new Bundle();
         bundle.putString(FIRST_TEAM_NAME_TAG, firstTeamName);
         bundle.putString(SECOND_TEAM_NAME_TAG, secondTeamName);
@@ -64,7 +67,6 @@ public class GameControlFragment extends BaseFragment {
             currentRoundNum = savedInstanceState.getInt(CURRENT_ROUND);
             team1Score = savedInstanceState.getInt(TEAM1_SCORE_SAVED);
             team2Score = savedInstanceState.getInt(TEAM2_SCORE_SAVED);
-
         }
     }
 
@@ -72,10 +74,15 @@ public class GameControlFragment extends BaseFragment {
     protected void onPostViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onPostViewCreated(view, savedInstanceState);
 
-        roundNumTextView.setText("Round: " + currentRoundNum);
-        firstTeamScoreTextView.setText(teamName1 + ": " + team1Score);
-        secondTeamScoreTextView.setText(teamName2 + ": " + team2Score);
+        roundNumTextView.setText(getString(R.string.filed_and_value_placeholder, getString(R.string.round_str), currentRoundNum));
+        firstTeamScoreTextView.setText(getString(R.string.filed_and_value_placeholder, teamName1, team1Score));
+        secondTeamScoreTextView.setText(getString(R.string.filed_and_value_placeholder, teamName2, team2Score));
 
+        if (currentRoundNum % 2 == 0) {
+            areYouReadyTextView.setText(getString(R.string.are_you_ready_placeholder, teamName1, getString(R.string.are_u_ready_str)));
+        } else {
+            areYouReadyTextView.setText(getString(R.string.are_you_ready_placeholder, teamName2, getString(R.string.are_u_ready_str)));
+        }
     }
 
     @Override
@@ -100,9 +107,9 @@ public class GameControlFragment extends BaseFragment {
 
     public void updateGameStatistics(int resultOfPrevGame) {
         if (currentRoundNum % 2 == 0) {
-            team1Score+=resultOfPrevGame;
+            team1Score += resultOfPrevGame;
         } else {
-            team2Score+=resultOfPrevGame;
+            team2Score += resultOfPrevGame;
         }
 
         currentRoundNum++;
